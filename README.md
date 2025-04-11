@@ -70,7 +70,6 @@
 ```
 **Success Body**:
 ```json
-no content
 ```
 
 
