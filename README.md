@@ -1,152 +1,77 @@
-# codeAutomata
-block-chain based certificate verification system
+# Django Authentication API :
 
-# 🔐 Django Authentication API (Knox + DRF)
-
-This API provides secure authentication endpoints using Django REST Framework (DRF) and Token Authentication via **Knox**.
-
----
-
-## 📌 Base URL
-
-http://127.0.0.1:8000/api/auth/
-
-
----
-
-## 🧾 Endpoints
-
-### 1. 🔐 Register a New User
-
-**URL**: `/signup/`  
-**Method**: `POST`  
-**Authentication**: ❌ Not required  
-
+## 1. Sign up:
+### URL - http://127.0.0.1:8000/api/auth/signup/
 **Request Body**:
 ```json
 {
-  "username": "your_username",
-  "email": "your_email@example.com",
-  "password": "your_secure_password"
+    "username" : "devv",
+    "email" : "dev@gmaill.com",
+    "password" : "12345"
 }
-
-**Success Response**
-
+```
+**Success Body**:
 ```json
 {
-  "user": {
-    "id": 1,
-    "username": "your_username",
-    "email": "your_email@example.com"
-  },
-  "token": "your_knox_token_here"
+    "user": {
+        "id": 2,
+        "username": "devv",
+        "email": "dev@gmaill.com"
+    },
+    "token": "c92256aa64006363f7b69ad8aa199d4328a08034c4e71389a6be0bc7ef96d0ba"
 }
+```
 
-2. 🔓 Login
-URL: /login/
-Method: POST
-Authentication: ❌ Not required
-
-Request Body:
-
-json
-Copy
-Edit
+## 2. Login:
+### URL - http://127.0.0.1:8000/api/auth/login/
+**Request Body**:
+```json
 {
-  "username": "your_username",
-  "password": "your_secure_password"
+    "username" : "devv",
+    "password" : "12345"
 }
-Success Response:
-
-json
-Copy
-Edit
+```
+**Success Body**:
+```json
 {
-  "user": {
-    "id": 1,
-    "username": "your_username",
-    "email": "your_email@example.com"
-  },
-  "token": "your_knox_token_here"
+    "user": {
+        "id": 2,
+        "username": "devv",
+        "email": "dev@gmaill.com"
+    },
+    "token": "c055e462fce73484bccb829338b855b99bb7cf4fedc68bcf5391496b357d27d8"
 }
-3. 🧑‍💻 Get Authenticated User Info
-URL: /user/
-Method: GET
-Authentication: ✅ Token Required
+```
 
-Headers:
-
-makefile
-Copy
-Edit
-Authorization: Token your_knox_token_here
-Success Response:
-
-json
-Copy
-Edit
+## 3. User Info:
+### URL - http://127.0.0.1:8000/api/auth/user/
+**Request Body**: Header
+```json
 {
-  "id": 1,
-  "username": "your_username",
-  "email": "your_email@example.com"
+    "Authorization" : "Token c055e462fce73484bccb829338b855b99bb7cf4fedc68bcf5391496b357d27d8",
 }
-4. 🚪 Logout
-URL: /logout/
-Method: POST
-Authentication: ✅ Token Required
-
-Headers:
-
-makefile
-Copy
-Edit
-Authorization: Token your_knox_token_here
-Success Response:
-
-json
-Copy
-Edit
+```
+**Success Body**:
+```json
 {
-  "detail": "Successfully logged out."
+    "id": 2,
+    "username": "devv",
+    "email": "dev@gmaill.com"
 }
-🛠 Setup Instructions
-Install dependencies:
+```
 
-bash
-Copy
-Edit
-pip install django djangorestframework django-rest-knox
-Add to INSTALLED_APPS in settings.py:
-
-python
-Copy
-Edit
-INSTALLED_APPS = [
-    ...
-    'rest_framework',
-    'knox',
-]
-Configure REST_FRAMEWORK in settings.py:
-
-python
-Copy
-Edit
-REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': [
-        'knox.auth.TokenAuthentication',
-    ]
+## 4. Logout:
+### URL - http://127.0.0.1:8000/api/auth/logout/
+**Request Body**: 
+```json
+{
+    "Authorization" : "Token c055e462fce73484bccb829338b855b99bb7cf4fedc68bcf5391496b357d27d8",
 }
-Migrate database:
+```
+**Success Body**:
+```json
+no content
+```
 
-bash
-Copy
-Edit
-python manage.py makemigrations
-python manage.py migrate
-Start development server:
 
-bash
-Copy
-Edit
-python manage.py runserver
 
